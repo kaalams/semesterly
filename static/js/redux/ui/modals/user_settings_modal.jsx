@@ -315,6 +315,8 @@ class UserSettingsModal extends React.Component {
                 onChange={this.changeClassYear}
               />
             </div>
+            
+            <div className = "preference cf"><h3>This is your favorite number: {this.props.userInfo.favoriteNumber}</h3></div>
             { preferences }
             {/* { !this.state.isSigningUp ? notifications : null } */}
             { fbUpsell }

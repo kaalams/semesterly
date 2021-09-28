@@ -173,6 +173,7 @@ export const userInfo = PropTypes.shape({
   LoginToken: PropTypes.string,
   LoginHash: PropTypes.string,
   timeAcceptedTos: PropTypes.string,
+  favoriteNumber: PropTypes.number,
 });
 
 export const schoolSpecificInfo = PropTypes.shape({

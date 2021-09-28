@@ -318,6 +318,27 @@ class Calendar extends React.Component {
         /> <p className="pilot-login-desc"> Register for PILOT </p>
       </a>
     );
+    const starButton = (
+      <div className="cal-btn-wrapper">
+        <button
+          onClick={this.props.togglePreferenceModal}
+          className="save-timetable"
+          data-tip
+          data-for="pref-btn-tooltip"
+        >
+          <img src="/static/img/star.png" alt="star" style={{ marginTop: '2px' }} />
+        </button>
+        <ReactTooltip
+          id="pref-btn-tooltip"
+          class="tooltip"
+          type="dark"
+          place="bottom"
+          effect="solid"
+        >
+          <span>OnBoarding</span>
+        </ReactTooltip>
+      </div>
+        );
 
     const pilotLogIn = (
       <a className="social-login-pilot">
@@ -342,6 +363,7 @@ class Calendar extends React.Component {
             { pilot }
           </div>
           <div className="fc-right">
+            { starButton }
             { addSISButton }
             { addCustomEventButton }
             { shareButton }
