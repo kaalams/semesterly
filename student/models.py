@@ -137,6 +137,12 @@ class PersonalEvent(models.Model):
     time_end = models.CharField(max_length=15)
 
 
+class MockStudent(models.Model):
+    mockUserFirstName = models.CharField(max_length=50)
+    mockUserLastName = models.CharField(max_length=50)
+    mockUserGraduatingClass = models.IntegerField(null=True)
+
+
 class PersonalTimetable(timetable_models.Timetable):
     """ Database object representing a timetable created (and saved) by a user.
 

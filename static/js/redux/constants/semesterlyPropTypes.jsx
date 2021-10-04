@@ -176,6 +176,12 @@ export const userInfo = PropTypes.shape({
   favoriteNumber: PropTypes.number,
 });
 
+export const mockUser = PropTypes.shape({
+  mockUserFirstName: PropTypes.string,
+  mockUserLastName: PropTypes.string,
+  mockUserGraduatingClass: PropTypes.number,
+})
+
 export const schoolSpecificInfo = PropTypes.shape({
   areasName: PropTypes.string.isRequired,
   campuses: PropTypes.shape({}),

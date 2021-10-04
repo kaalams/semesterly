@@ -1,15 +1,20 @@
-// import { connect } from 'react-redux';
-// import MockModal from '../../modals/mock_modal';
+import { connect } from 'react-redux';
+import MockModal from '../../modals/mock_modal';
+import {toggleMockModal} from '../../../actions/modal_actions'
 
-// const mapStateToProps = state => ({
-//   userInfo: state.userInfo.data,
-// });
+const mapStateToProps = state =>  {
+    console.log(state)
+    return {
+        isVisible: state.mockModal.isVisible,
+        userInfo: state.userInfo.data,
+      };
+}
 
-// const MockModalContainer = connect(
-//     mapStateToProps,
-//   {
-    
-//   },
-// )(MockModal);
+const MockModalContainer = connect(
+    mapStateToProps,
+  {
+    toggleMockModal
+  },
+)(MockModal);
 
-// export default MockModalContainer;
+export default MockModalContainer;

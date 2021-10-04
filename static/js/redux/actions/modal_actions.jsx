@@ -117,6 +117,8 @@ export const togglePeerModal = () => ({ type: ActionTypes.TOGGLE_PEER_MODAL });
 
 export const triggerTextbookModal = () => ({ type: ActionTypes.TRIGGER_TEXTBOOK_MODAL });
 
+export const toggleMockModal = () => ({ type: ActionTypes.TOGGLE_MOCK_MODAL });
+
 export const showFinalExamsModal = () => ({ type: ActionTypes.SHOW_FINAL_EXAMS_MODAL });
 
 export const overrideSettingsShow = data => ({

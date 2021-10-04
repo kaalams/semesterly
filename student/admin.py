@@ -11,5 +11,7 @@
 # GNU General Public License for more details.
 
 from django.contrib import admin
+from .models import MockStudent
 
 # Register your models here.
+admin.site.register(MockStudent)

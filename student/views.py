@@ -30,7 +30,7 @@ from rest_framework.views import APIView
 from authpipe.utils import check_student_token
 from analytics.models import CalendarExport
 from courses.serializers import CourseSerializer
-from student.models import Student, Reaction, RegistrationToken, PersonalEvent, PersonalTimetable
+from student.models import Student, Reaction, RegistrationToken, PersonalEvent, PersonalTimetable, MockStudent
 from student.utils import next_weekday, get_classmates_from_course_id, get_student_tts
 from timetable.models import Semester, Course, Section
 from timetable.serializers import DisplayTimetableSerializer

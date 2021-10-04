@@ -46,6 +46,7 @@ import textbookModal from './textbook_modal_reducer';
 import finalExamsModal from './final_exams_modal_reducer';
 import registrar from './registrar_reducer';
 import entities, * as fromEntities from './entities_reducer';
+import mockModal from './mock_modal_reducer';
 
 const rootReducer = combineReducers({
   alerts,
@@ -79,6 +80,7 @@ const rootReducer = combineReducers({
   ui,
   userAcquisitionModal,
   userInfo,
+  mockModal,
 });
 
 // timetable/entity selectors

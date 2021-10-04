@@ -28,6 +28,7 @@ from timetable.models import Semester
 from timetable.school_mappers import SCHOOLS_MAP
 from parsing.schools.active import ACTIVE_SCHOOLS
 from timetable.utils import get_current_semesters
+from student.models import MockStudent
 
 
 class ValidateSubdomainMixin:
@@ -66,6 +67,8 @@ class FeatureFlowView(ValidateSubdomainMixin, APIView):
             return HttpResponseRedirect('/')
         self.school = request.subdomain
         self.student = get_student(request)
+        self.mock_student = MockStudent.objects.filter(
+            mockUserFirstName=self.student.first_name, mockUserLastName=self.student.last_name)[0]
 
         feature_flow = self.get_feature_flow(request, *args, **kwargs)
 
@@ -101,7 +104,7 @@ class FeatureFlowView(ValidateSubdomainMixin, APIView):
 
         init_data = {
             'school': self.school,
-            'currentUser': get_student_dict(self.school, self.student, sem),
+            'currentUser': get_student_dict(self.school, self.student, sem, self.mock_student),
             'currentSemester': curr_sem_index,
             'allSemesters': all_semesters,
             # 'oldSemesters': get_old_semesters(self.school),
@@ -110,7 +113,7 @@ class FeatureFlowView(ValidateSubdomainMixin, APIView):
             'latestAgreement': AgreementSerializer(Agreement.objects.latest()).data,
             'registrar': SCHOOLS_MAP[self.school].registrar,
             'examSupportedSemesters': list(map(all_semesters.index,
-                                          final_exams)),
+                                               final_exams)),
             'timeUpdatedTos': Agreement.objects.latest().last_updated.isoformat(),
 
             'featureFlow': dict(feature_flow, name=self.feature_name)
@@ -125,7 +128,8 @@ class CsrfExemptSessionAuthentication(SessionAuthentication):
 
 
 class CsrfExemptMixin:
-    authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
+    authentication_classes = (
+        CsrfExemptSessionAuthentication, BasicAuthentication)
 
 
 class RedirectToSignupMixin(LoginRequiredMixin):

@@ -15,12 +15,14 @@ from rest_framework import serializers
 from courses.serializers import CourseSerializer
 from timetable.serializers import DisplayTimetableSerializer
 from student.models import Student
+from student.models import MockStudent
 
 
-def get_student_dict(school, student, semester):
+def get_student_dict(school, student, semester, mock_student):
     """ Return serialized representation of a student. """
     user_dict = {'timeAcceptedTos': None,
                  'isLoggedIn': False, 'timetables': [], 'courses': []}
+
     if student is not None:
         user_dict = dict(user_dict, **StudentSerializer(student).data)
         user_dict['isLoggedIn'] = True
@@ -34,7 +36,27 @@ def get_student_dict(school, student, semester):
             timetables, many=True).data
         user_dict['courses'] = CourseSerializer(
             courses, context=context, many=True).data
+        user_dict['mockUser'] = get_mock_student(mock_student)
     return user_dict
+
+
+def get_mock_student(mock_student):
+    return MockStudentSerializer(
+        mock_student).data
+
+
+class MockStudentSerializer(serializers.ModelSerializer):
+    mockUserFirstName = serializers.CharField()
+    mockUserLastName = serializers.CharField()
+    mockUserGraduatingClass = serializers.CharField()
+
+    class Meta:
+        model = MockStudent
+        fields = (
+            'mockUserFirstName',
+            'mockUserLastName',
+            'mockUserGraduatingClass',
+        )
 
 
 class StudentSerializer(serializers.ModelSerializer):
