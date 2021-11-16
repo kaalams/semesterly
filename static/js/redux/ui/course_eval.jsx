@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Header from "./Header";
+import Header from "./new_header";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useLocation } from "react-router-dom";
 import { Input, Tag, Checkbox, Table } from "antd";
@@ -41,7 +41,7 @@ const data = [
     key: 1,
     course_no: 1,
     course_name: "John Brown",
-    areas: 32,
+    areas: "H",
     writing: "New York No. 1 Lake Park",
     credits: 4,
     rating: 4.7,
@@ -52,7 +52,7 @@ const data = [
     key: 2,
     course_no: 2,
     course_name: "Zac Wild",
-    areas: 32,
+    areas: "EN",
     writing: "New York No. 1 Lake Park",
     credits: 4,
     rating: 3.4,
@@ -63,7 +63,7 @@ const data = [
     key: 3,
     course_no: 3,
     course_name: "Dave Brown",
-    areas: 32,
+    areas: "S",
     writing: "New York No. 1 Lake Park",
     credits: 4,
     rating: 3.9,
@@ -74,7 +74,7 @@ const data = [
     key: 4,
     course_no: 4,
     course_name: "John Brown",
-    areas: 32,
+    areas: "N",
     writing: "New York No. 1 Lake Park",
     credits: 4,
     rating: 4.2,
@@ -97,7 +97,26 @@ const CourseEvalPage = () => {
             </Tag>
           ))}
 
-          <Checkbox.Group options={plainOptions} defaultValue={["Apple"]} />
+          <Checkbox.Group
+            options={plainOptions}
+            defaultValue={["Apple"]}
+            onChange={(checkedValues) => {
+              if (checkedValues.length == 0) {
+                selectTableData(data);
+              } else {
+                checkedValues.forEach((element) => {
+                  const currValue = element;
+                  console.log(currValue);
+                  const filteredData = tableData.filter(
+                    (entry) =>
+                      entry.areas.toLowerCase() === currValue.toLowerCase()
+                  );
+                  console.log(filteredData);
+                  selectTableData(filteredData);
+                });
+              }
+            }}
+          />
         </div>
 
         <div className="col">
