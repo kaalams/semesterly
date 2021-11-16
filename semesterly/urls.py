@@ -27,8 +27,9 @@ import pilot.urls
 admin.autodiscover()
 
 urlpatterns = [
-    re_path(r'^$', helpers.mixins.FeatureFlowView.as_view(), name='home'),
+    re_path(r'^$/', helpers.mixins.FeatureFlowView.as_view(), name='home'),
     re_path(r'about/*', TemplateView.as_view(template_name='about.html')),
+    #re_path(r'course-evaluations/*', TemplateView.as_view(template_name='')), trying to render the react here!
     re_path(r'press/*', TemplateView.as_view(template_name='press.html')),
     re_path(r'notice', TemplateView.as_view(
         template_name='notice.html')),
