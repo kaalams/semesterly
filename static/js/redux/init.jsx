@@ -12,14 +12,14 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 */
 
-import "babel-polyfill";
-import React from "react";
-import { render } from "react-dom";
-import { applyMiddleware, createStore } from "redux";
-import thunkMiddleware from "redux-thunk";
-import { Provider } from "react-redux";
-import rootReducer from "./reducers/root_reducer";
-import SemesterlyContainer from "./ui/containers/semesterly_container";
+import 'babel-polyfill';
+import React from 'react';
+import { render } from 'react-dom';
+import { configureStore } from '@reduxjs/toolkit';
+import { Provider } from 'react-redux';
+import reducers from './reducers';
+import SemesterlyContainer from './ui/containers/semesterly_container';
+import { fetchMostClassmatesCount, handleAgreement, isRegistered } from './actions/user_actions
 import {
   fetchMostClassmatesCount,
   handleAgreement,
@@ -49,11 +49,7 @@ import {
 import * as ActionTypes from "./constants/actionTypes";
 import App from "../routes";
 
-const store = createStore(
-  rootReducer,
-  window.devToolsExtension && window.devToolsExtension(),
-  applyMiddleware(thunkMiddleware)
-);
+const store = configureStore({ reducer: reducers });
 
 // load initial timetable from user data if logged in or local storage
 const setupTimetables = (userTimetables, allSemesters, oldSemesters) => (
