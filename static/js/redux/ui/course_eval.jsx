@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Header from "./new_header";
-import "bootstrap/dist/css/bootstrap.min.css";
+//import "bootstrap/dist/css/bootstrap.min.css"; Loaders dont work 
 import { useLocation } from "react-router-dom";
 import { Input, Tag, Checkbox, Table } from "antd";
 

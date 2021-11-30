@@ -1,12 +1,12 @@
 import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
+//import "bootstrap/dist/css/bootstrap.min.css"; Loaders dont work
 import Logo from "../../../img/semesterly_logo.svg";
-import "antd/dist/antd.css";
-import FontAwesome from "@fortawesome/fontawesome-free/css/all.css";
+//import "antd/dist/antd.css"; Loaders dont work
+import FontAwesome from "fortawesome/fontawesome-free/css/all.css";
 
 const Header = () => {
   return (
-    <>
+    <React.Fragment>
       <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
         <a
           href="/"
@@ -29,7 +29,7 @@ const Header = () => {
           </li>
         </ul>
       </header>
-    </>
+    </React.Fragment>
   );
 };
 

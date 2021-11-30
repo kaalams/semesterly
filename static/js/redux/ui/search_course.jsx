@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
+//import "bootstrap/dist/css/bootstrap.min.css"; Loaders dont work
 import { Link } from "react-router-dom";
 import { Form, Input, Select, Button } from "antd";
-import Header from "./Header";
+import Header from "./new_header";
 
 const layout = {
   labelCol: {
