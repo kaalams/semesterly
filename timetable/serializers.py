@@ -49,3 +49,13 @@ class DisplayTimetableSerializer(serializers.Serializer):
             timetables = [DisplayTimetable.from_model(tt) for tt in timetable]
             return DisplayTimetableSerializer(timetables, **kwargs)
         return DisplayTimetableSerializer(DisplayTimetable.from_model(timetable), **kwargs)
+
+class ReviewsSerializer(serializers.Serializer):
+    course = serializers.IntegerField()
+    score = serializers.FloatField()
+    summary = serializers.CharField()
+    professor = serializers.CharField()
+    year = serializers.CharField()
+
+
+

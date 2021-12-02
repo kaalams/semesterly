@@ -1,8 +1,8 @@
 import React from "react";
-//import "bootstrap/dist/css/bootstrap.min.css"; Loaders dont work
+//import "bootstrap/dist/css/bootstrap.min.css";
 import Logo from "../../../img/semesterly_logo.svg";
 //import "antd/dist/antd.css"; Loaders dont work
-import FontAwesome from "fortawesome/fontawesome-free/css/all.css";
+//import FontAwesome from "fortawesome/fontawesome-free/css/all.css";
 
 const Header = () => {
   return (

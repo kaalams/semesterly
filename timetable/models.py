@@ -276,8 +276,10 @@ class Evaluation(models.Model):
     score = models.FloatField(default=5.0)
     summary = models.TextField()
     professor = models.CharField(max_length=255)
-    course_code = models.CharField(max_length=20)
     year = models.CharField(max_length=200)
+    
+    def __str__(self):
+        return "{}, {}, {}, {}".format(str(self.course), self.summary, self.professor, self.year)
 
 
 class TextbookLink(models.Model):

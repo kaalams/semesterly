@@ -24,11 +24,13 @@ from analytics.models import SharedTimetable
 from analytics.views import save_analytics_timetable
 from courses.serializers import CourseSerializer
 from student.utils import get_student
-from timetable.serializers import DisplayTimetableSerializer
-from timetable.models import Semester, Course, Section
+from timetable.serializers import DisplayTimetableSerializer, ReviewsSerializer
+from timetable.models import Semester, Course, Section, Evaluation
 from timetable.utils import update_locked_sections, courses_to_timetables, DisplayTimetable
 from helpers.mixins import ValidateSubdomainMixin, FeatureFlowView, CsrfExemptMixin
 from semesterly.settings import get_secret
+from django.core import serializers
+import json
 
 hashids = Hashids(salt=get_secret('HASHING_SALT'))
 logger = logging.getLogger(__name__)
@@ -166,3 +168,49 @@ class TimetableLinkView(FeatureFlowView):
 
         response = {'slug': hashids.encrypt(shared_timetable.id)}
         return Response(response, status=status.HTTP_200_OK)
+
+
+class ReviewsView(APIView):
+    def get(self, request, ck=None, rk=None):
+        response = {}
+        if ck is None and rk is None:
+            reviews = Evaluation.objects.all()
+            serializer = serializers.serialize('json', reviews, indent=2)
+            response = serializer
+        elif rk is None:
+            reviews = Evaluation.objects.filter(course=ck)
+            serializer = serializers.serialize('json', reviews, indent=2)
+            response = serializer
+        else:
+            reviews = Evaluation.objects.filter(course=ck, pk=rk)
+            serializer = serializers.serialize('json', reviews, indent=2)
+            response = serializer
+        return Response(json.loads(response), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        response = {}
+        sts = status.HTTP_500_INTERNAL_SERVER_ERROR
+        data = json.loads(request.body)
+        keys = ['course_id', 'score', 'summary', 'professor', 'year']
+        for k in keys:
+            if k not in data:
+                response["{} error".format(k)] = "{} missing in request body".format(k)
+                
+        if len(response) > 0:
+            sts = status.HTTP_400_BAD_REQUEST
+        elif len(Course.objects.filter(pk=data['course_id'])) == 0:
+            response["error"] = "Course ID does not exist!"
+            sts = status.HTTP_404_NOT_FOUND
+        else:
+            rev = Evaluation(
+                course=Course.objects.get(pk=data['course_id']),
+                score=data['score'],
+                summary=data['summary'],
+                professor=data['professor'],
+                year=data['year']
+                )
+            rev.save()
+            response = serializers.serialize('json', [rev], indent=2)
+            sts = status.HTTP_200_OK
+        return Response(json.loads(response), status=sts)
+        

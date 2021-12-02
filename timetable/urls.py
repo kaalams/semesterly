@@ -11,9 +11,11 @@
 # GNU General Public License for more details.
 
 from django.conf.urls import re_path
+from django.urls import path
 from django.contrib import admin
 from django.http import HttpResponseRedirect
 from django.views.generic.base import RedirectView
+from timetable.views import ReviewsView
 
 import timetable.views
 from helpers.mixins import FeatureFlowView
@@ -34,7 +36,9 @@ urlpatterns = [
     re_path(r'^find_friends/$',
         FeatureFlowView.as_view(feature_name='FIND_FRIENDS')),
     # re_path(r'^callback/google_calendar/*$', FeatureFlowView.as_view(feature_name='GCAL_CALLBACK')),
-
+    path('api/timetable/reviews/', ReviewsView.as_view()),
+    path('api/timetable/reviews/<int:ck>/', ReviewsView.as_view()),
+    path('api/timetable/reviews/<int:ck>/<int:rk>', ReviewsView.as_view()), 
     re_path(r'^timetable/.*$', RedirectView.as_view(url="/")),
 
     re_path(r'^complete/facebook/.*$', FeatureFlowView.as_view()),
