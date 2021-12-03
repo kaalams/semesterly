@@ -12,14 +12,13 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 */
 
-import 'babel-polyfill';
-import React from 'react';
-import { render } from 'react-dom';
-import { configureStore } from '@reduxjs/toolkit';
-import { Provider } from 'react-redux';
-import reducers from './reducers';
-import SemesterlyContainer from './ui/containers/semesterly_container';
-import { fetchMostClassmatesCount, handleAgreement, isRegistered } from './actions/user_actions';
+import "babel-polyfill";
+import React from "react";
+import { render } from "react-dom";
+import { configureStore } from "@reduxjs/toolkit";
+import { Provider } from "react-redux";
+import reducers from "./reducers";
+import SemesterlyContainer from "./ui/containers/semesterly_container";
 import {
   fetchMostClassmatesCount,
   handleAgreement,
