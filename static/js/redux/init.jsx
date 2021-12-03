@@ -19,7 +19,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import reducers from './reducers';
 import SemesterlyContainer from './ui/containers/semesterly_container';
-import { fetchMostClassmatesCount, handleAgreement, isRegistered } from './actions/user_actions
+import { fetchMostClassmatesCount, handleAgreement, isRegistered } from './actions/user_actions'
 import {
   fetchMostClassmatesCount,
   handleAgreement,
