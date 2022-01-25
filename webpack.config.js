@@ -21,6 +21,7 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const isProd = process.env.NODE_ENV === "production";
 const isDev = process.env.NODE_ENV === "development";
 
+// eslint-disable-next-line no-console
 console.log(`Running Webpack for ${process.env.NODE_ENV}`);
 
 const config = {
@@ -72,6 +73,17 @@ const config = {
         },
       },
       {
+        // add loader option to bundle and transpile typescript
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: "ts-loader",
+            options: { onlyCompileBundledFiles: true },
+          },
+        ],
+      },
+      {
         test: /\.scss$/,
         exclude: /node_modules/,
         use: ExtractTextPlugin.extract({
@@ -115,16 +127,14 @@ const config = {
     // tells webpack where to look for modules
     modules: ["node_modules"],
     // extensions that should be used to resolve modules
-    extensions: [".jsx", ".js", ".scss", ".css"],
+    extensions: [".jsx", ".js", ".ts", ".tsx", ".scss", ".css"],
   },
 };
 
 if (isDev) {
   // Tell django to use this URL to load packages and not use STATIC_URL + bundle_name
   config.output.publicPath = "http://localhost:3000/assets/bundles/";
-  config.plugins = config.plugins.concat(
-    new webpack.HotModuleReplacementPlugin()
-  );
+  config.plugins = config.plugins.concat(new webpack.HotModuleReplacementPlugin());
   // don't reload if there is an error
   config.plugins = config.plugins.concat(new webpack.NoEmitOnErrorsPlugin());
   // config.module.loaders = [{
